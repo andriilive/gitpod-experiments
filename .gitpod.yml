@@ -3,10 +3,12 @@ github:
     # enable for the master/default branch (defaults to true)
     master: true
     branches: true
+    addCheck: true
+    addBadge: true
 
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - before: brew install sqlite3 wp-cli php@8.0 && brew link --force --overwrite
+  - before: brew install sqlite3 wp-cli php@8.0 && brew unlink php && brew link php@8.0
     init: composer create-project --prefer-dist roots/bedrock .tmp \
             && rm --rf .git -f \
             && mv .tmp/* . \
