@@ -8,9 +8,9 @@ github:
 
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
+  - name: "Bootstraped wp/roots/bedrock"
   - before: brew install sqlite3 wp-cli php@8.0 && brew unlink php && brew link php@8.0
-    init: composer create-project --prefer-dist roots/bedrock .tmp \
-            && rm --rf .git -f \
+    init: composer create-project roots/bedrock 
             && mv .tmp/* . \
             && composer require wpackagist-plugin/acf-extended
     command: wp server --host=0.0.0.0 --port=3000
