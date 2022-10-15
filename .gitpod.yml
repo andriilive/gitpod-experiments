@@ -14,20 +14,13 @@ tasks:
     command: wp server --host=0.0.0.0 --port=3000
 
   - init: |
-      cd web/app/themes/bedrock-theme
-      npm install
-    command: |
-      cd web/app/themes/bedrock-theme
-      npm run dev
-
-  - init: |
       gp awaits -p 3000
       gp preview $(gp url 3000)
       cd .db
       wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O index.php
       sqlite3 development.sqlite3
     command: cd .db chmod 777 development.sqlite3 && chmod 777 index.php && php -S 0.0.0.0:8080
-  - init: gp await-port 8080
+  - init: gp port awaits 8080
     command: gp preview $(gp url 8080)
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
