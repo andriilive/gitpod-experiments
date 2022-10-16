@@ -18,8 +18,9 @@ tasks:
     init: |
       gp ports await 3000
       gp preview $(gp url 3000)
+      md db
       wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O ./db/index.php
-      sqlite3 ./db/development.sqlite3
+      sqlite3 db/development.sqlite3
     command: chmod 777 db/development.sqlite3 && chmod 777 db/index.php && cd db && php -S 0.0.0.0:8080
   - name: serve adminer
     init: gp ports await 8080
