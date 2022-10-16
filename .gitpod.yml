@@ -9,18 +9,20 @@ github:
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 # !!! IMPORTANT wp-cli !!!
 tasks:
-  - before: brew install sqlite3 wp-cli
+  - name: serve wp
+    before: brew install sqlite3 wp-cli
     init: composer create-project roots/bedrock tmp && mv ./tmp/* . && composer require wpackagist-plugin/acf-extended && rm -rf ./tmp
     command: wp server --host=0.0.0.0 --port=3000
 
-  - init: |
+  - name: install adminer
+    init: |
       gp ports await 3000
       gp preview $(gp url 3000)
-      cd .db
-      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O index.php
-      sqlite3 development.sqlite3
-    command: cd .db chmod 777 development.sqlite3 && chmod 777 index.php && php -S 0.0.0.0:8080
-  - init: gp ports await 8080
+      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O ./db/index.php
+      sqlite3 ./db/development.sqlite3
+    command: chmod 777 db/development.sqlite3 && chmod 777 db/index.php && cd db && php -S 0.0.0.0:8080
+  - name: serve adminer
+    init: gp ports await 8080
     command: gp preview $(gp url 8080)
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
