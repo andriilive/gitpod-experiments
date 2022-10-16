@@ -9,7 +9,7 @@ github:
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 # !!! IMPORTANT wp-cli !!!
 tasks:
-  - before: brew install sqlite3
+  - before: brew install sqlite3 wp-cli
     init: composer create-project roots/bedrock tmp && mv ./tmp/* . && composer require wpackagist-plugin/acf-extended && rm -rf ./tmp
     command: wp server --host=0.0.0.0 --port=3000
 
