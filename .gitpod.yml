@@ -18,6 +18,10 @@ github:
 tasks:
   - name: wordpress
     before: |
+      brew unlink php
+      brew link php@8.0
+      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
+      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
@@ -40,6 +44,18 @@ tasks:
       gp sync-done sqlite
     command: gp sync-await sqlite && php -S 0.0.0.0:8080 adminer.php & gp preview $(gp url 8080)
 
+  - name: info
+    init: gp sync-done sqlite
+    command: |
+      echo "wp: $(gp url 3000)"
+      echo "wp/admin: $(gp url 3000)/wp-login.php"
+      echo "wp admin users:"
+      wp user list --role=administrator
+      echo "gitpod workspace info:"
+      gp info
+      echo "git remotes"
+      git remote -v
+
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
   - name: Web
@@ -49,9 +65,6 @@ ports:
   - name: Adminer
     port: 8080
     onOpen: open-browser
-
-  - port: 6942
-    onOpen: ignore
 
   - port: 5000-8079
     onOpen: ignore
