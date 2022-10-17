@@ -29,7 +29,7 @@ tasks:
       wp dotenv set DB_NAME wordpress
       wp dotenv set DB_USER root
       # wp dotenv set DB_PASSWORD
-      sed "s/DB_PASSWORD=.*/DB_PASSWORD=/g"
+      sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=/g" .env
       wp dotenv set WP_HOME $(gp url 8080)
       
       # Create the database
@@ -62,9 +62,9 @@ tasks:
       touch .utils/phpinfo.php && echo '<?php phpinfo();' >> .utils/phpinfo.php
       chmod 640 .utils/phpinfo.php
       
-      gp ports await 8080
-      
       echo "wp/web: $(gp url 8080)"
+      
+      gp ports await 8080
       echo "wp/admin: $(gp url 8080)/wp/wp-login.php"
       echo "wp/user:"
       echo "username: root"
@@ -76,5 +76,20 @@ tasks:
       
       echo "utils/phpinfo: $(gp url 3333)/phpinfo.php"
       echo "utils/adminer: $(gp url 3333)/adminer.php"
+      
+      echo "--------------------------------------"
+      
+      git remote -v
 
     command: php -S 0.0.0.0:3333 -t .utils
+
+
+ports:
+  - port: 3306
+    onOpen: ignore
+  - port: 33060
+    onOpen: ignore
+  - port: 8080
+    onOpen: open-browser
+  - port: 3333
+    onOpen: ignore
