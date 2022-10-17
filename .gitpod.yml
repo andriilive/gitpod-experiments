@@ -22,6 +22,7 @@ tasks:
       brew link php@8.0
       echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
       echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
+      package install aaemnnosttv/wp-cli-dotenv-command:^2.0
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
@@ -31,6 +32,12 @@ tasks:
       wget https://raw.githubusercontent.com/aaemnnosttv/wp-sqlite-db/master/src/db.php -O web/app/db.php
       chmod 640 web/phpinfo.php
       composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil
+      wp core install --url=$(gp url 3000) --title="Wordpress by DigitalAndy.eu" --admin_user="root" --admin_password="root" --admin_email="example@example.com"
+      wp dotenv salts regenerate
+      wp dotenv set DB_NAME wordpress
+      wp dotenv set DB_USER gitpod
+      wp dotenv set DB_PASSWORD
+      wp dotenv set WP_HOME $(gp url 3000)
       gp sync-done init
     init: |
       gp sync-await init
@@ -56,6 +63,8 @@ tasks:
       echo "wp/user:"
       echo "username: root"
       echo "password: root"
+      echo "wp/envs:"
+      wp dotenv list
       echo "--------------------------------------"
       echo "php/info: $(gp url 3000)/phpinfo.php"
       echo "db/adminer: $(gp url 8080)"
