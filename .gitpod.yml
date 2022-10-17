@@ -22,9 +22,6 @@ tasks:
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
       cp -f -r tmp/. . && rm -rf -r tmp
       
-      # Install project deps
-      composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil lukasbesch/bedrock-plugin-disabler
-      
       # Config the installation
       wp dotenv salts regenerate
       wp dotenv set DB_NAME wordpress
@@ -38,6 +35,9 @@ tasks:
       
       # Launch the installation
       wp core install --url=$(gp url 8080) --title="Wordpress on GitPod" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email
+      
+      # Install project deps
+      composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil lukasbesch/bedrock-plugin-disabler
       
       gp sync-done init
       
