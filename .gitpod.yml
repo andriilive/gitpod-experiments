@@ -30,6 +30,7 @@ tasks:
       chmod 640 web/phpinfo.php
       wget https://raw.githubusercontent.com/aaemnnosttv/wp-sqlite-db/master/src/db.php -O web/app/db.php
       chmod 640 web/phpinfo.php
+      composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil
       gp sync-done init
     init: |
       gp sync-await init
