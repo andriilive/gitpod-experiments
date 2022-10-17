@@ -14,6 +14,8 @@ tasks:
   - name: wordpress
     before: |
       brew install mysql
+      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
+      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
       wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
