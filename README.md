@@ -11,6 +11,11 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 - php 8.0
 - [wp-cli dotenv](https://aaemnnost.tv/wp-cli-commands/dotenv/) support
 
+## Readlist
+- [digitalandyeu/gitpod-wordpress-roots](https://github.com/digitalandyeu/gitpod-wordpress-roots)
+- [ddenv](https://ddev.com)
+- https://github.com/edniaj/gitpod_with_mysql
+
 ## TODO
 
 - [x] sqlite db
