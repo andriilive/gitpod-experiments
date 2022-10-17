@@ -6,14 +6,18 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 
 - [roots/bedrock](https://roots.io/bedrock/)
 - sqlite3
+- wp sqlite integration by [aaemnnosttv/wp-sqlite-db](https://github.com/aaemnnosttv/wp-sqlite-db)
 - wp-cli
 - [Adminer](https://www.adminer.org) v4.8.1
 - php 8.0
 
 ## TODO
 
-- [ ] Add empty lines to the prepended files (readme, .gitignore)
-- [ ] Implement Gitpod's [prebuilds](https://www.gitpod.io/docs/prebuilds/)
+- [x] DB connection
+- [ ] Create scaffold's config file
+- [ ] Think about forks, template or other compatibility for integration between versions
+- [ ] Add empty lines to the prepended files content commands (readme, .gitignore)
+- [ ] Check & implement better Gitpod's [prebuilds](https://www.gitpod.io/docs/prebuilds/)
 - [ ] Implement Gitpod's [variables](https://www.gitpod.io/docs/configure/projects/environment-variables) 
 
 ⚠️ Two empty lines at the end of this file are recommended
