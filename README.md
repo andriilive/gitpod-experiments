@@ -1,6 +1,6 @@
 # Gitpod scaffold WP installation
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/andriilive/gitpod-experiments)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/andriilive/gitpod-wordpress-experiments)
 
 Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configuration, and an improved folder structure
 
