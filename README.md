@@ -8,7 +8,6 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 - sqlite3
 - wp sqlite integration by [aaemnnosttv/wp-sqlite-db](https://github.com/aaemnnosttv/wp-sqlite-db)
 - wp-cli
-- [Adminer](https://www.adminer.org) v4.8.1
 - php 8.0
 - [wp-cli dotenv](https://aaemnnost.tv/wp-cli-commands/dotenv/) support
 
@@ -16,7 +15,8 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 
 - [x] sqlite db
 - [ ] mysql db
-- [ ] Adminer db admin
+- [ ] create .distignore at build
+- [ ] [Adminer](https://www.adminer.org) v4.8.1 db admin
 - [ ] Create scaffold's config file
 - [ ] Think about forks, template or other compatibility for integration between versions
 - [ ] Add empty lines to the prepended files content commands (readme, .gitignore)

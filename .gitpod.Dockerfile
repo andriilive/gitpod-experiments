@@ -10,7 +10,3 @@ RUN brew install \
     echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile && \
     brew install wp-cli && \
     wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
-
-USER root
-RUN brew install mysql && \
-    brew services restart mysql
