@@ -49,15 +49,19 @@ tasks:
   - name: info
     init: gp sync-done sqlite
     command: |
-      echo "wp: $(gp url 3000)"
+      echo "wp/web: $(gp url 3000)"
       echo "wp/admin: $(gp url 3000)/admin"
+      echo "wp/user:"
+      echo "username: root"
+      echo "password: root"
+      echo "--------------------------------------"
       echo "php/info: $(gp url 3000)/phpinfo.php"
-      echo "db/adminer: $(gp url 8008)"
-      echo "wp admin users:"
-      # wp user list --role=administrator
-      echo "gitpod workspace info:"
+      echo "db/adminer: $(gp url 8080)"
+      echo "--------------------------------------"
+      echo "gp/path:" $(readlink -f .)
+      echo "gp/workspace info:"
       gp info
-      echo "git remotes"
+      echo "gp/git remotes"
       git remote -v
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
