@@ -29,8 +29,8 @@ tasks:
       wp core install --url=$(gp url 3000) --title="Wordpress by DigitalAndy.eu" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email
       wp dotenv salts regenerate
       wp dotenv set DB_NAME wordpress
-      wp dotenv set DB_USER gitpod
-      wp dotenv set DB_PASSWORD ""
+      wp dotenv set DB_USER root
+      wp dotenv set DB_PASSWORD root
       wp dotenv set WP_HOME $(gp url 3000)
       gp sync-done init
     init: |
