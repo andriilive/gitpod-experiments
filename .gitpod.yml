@@ -22,7 +22,7 @@ tasks:
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore 
       mv -f .distignore tmp/.distignore
-      cp -f -r tmp/* . && rm -rf -r tmp
+      cp -f -r tmp/. . && rm -rf -r tmp
       gp sync-done init
     init: |
       gp sync-await init
