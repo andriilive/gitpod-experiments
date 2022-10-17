@@ -32,19 +32,19 @@ tasks:
       # sqlite3 web/app/database/.ht.sqlite3 &
       touch web/app/database/.ht.sqlite3
       
-      chmod 640 web/phpinfo.php
       composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil lukasbesch/bedrock-plugin-disabler
-      wp core install --url=$(gp url 3000) --title="Wordpress by DigitalAndy.eu" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email
+      
       wp dotenv salts regenerate
       wp dotenv set DB_NAME wordpress
       wp dotenv set DB_USER root
       wp dotenv set DB_PASSWORD root
       wp dotenv set WP_HOME $(gp url 3000)
-      gp sync-done init
+      
+      wp core install --url=$(gp url 3000) --title="Wordpress by DigitalAndy.eu" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email
     command: wp server --host=0.0.0.0 --port=3000
 
-  - name: sqlite
-    command: gp sync-await init && php -S 0.0.0.0:8080 db/adminer.php
+  - name: Adminer
+    command: php -S 0.0.0.0:8080 db/adminer.php
 
   - name: info
     command: |
@@ -76,7 +76,7 @@ ports:
 
   - name: Adminer
     port: 8080
-    onOpen: notify
+    onOpen: ignore
 
   - port: 5000-8079
     onOpen: ignore
