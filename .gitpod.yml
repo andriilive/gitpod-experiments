@@ -22,7 +22,7 @@ tasks:
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore 
       mv -f .distignore tmp/.distignore
-      cp -f tmp/* . && rm -rf tmp
+      cp -f -r tmp/* . && rm -rf -r tmp
       wp server --host=0.0.0.0 --port=3000
     command: gp preview $(gp url 3000)
 
@@ -35,7 +35,6 @@ tasks:
       chmod 777 gitpod.sqlite3
     init: |
       gp ports await 3000
-      cd db
       php -S 0.0.0.0:8080 -t db adminer.php
     command: gp preview $(gp url 8080)
 
