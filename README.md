@@ -14,6 +14,7 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 ## TODO
 
 - [x] DB connection
+- [ ] DB Adminer
 - [ ] Create scaffold's config file
 - [ ] Think about forks, template or other compatibility for integration between versions
 - [ ] Add empty lines to the prepended files content commands (readme, .gitignore)

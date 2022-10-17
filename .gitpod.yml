@@ -28,6 +28,8 @@ tasks:
       cp -f -r tmp/. . && rm -rf -r tmp
       touch web/phpinfo.php && echo '<?php phpinfo();' >> web/phpinfo.php
       chmod 640 web/phpinfo.php
+      wget https://raw.githubusercontent.com/aaemnnosttv/wp-sqlite-db/master/src/db.php -O web/app/db.php
+      chmod 640 web/phpinfo.php
       gp sync-done init
     init: |
       gp sync-await init
@@ -37,14 +39,13 @@ tasks:
   - name: sqlite
     before: |
       gp sync-await init
-      mkdir db && cd db
-      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O adminer.php
-      chmod 640 adminer.php
-      touch gitpod.sqlite
+      mkdir db
+      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O db/adminer.php
+      chmod 640 db/adminer.php
     init: |
       gp ports await 3000
-      gp sync-done sqlite
-    command: gp sync-await sqlite && php -S 0.0.0.0:8080 adminer.php & gp preview $(gp url 8080)
+      php -S 0.0.0.0:8080 adminer.php
+    command: gp ports await 3000 && gp preview $(gp url 8080) && sqlite web/app/database/.ht.sqlite & gp sync-done sqlite
 
   - name: info
     init: gp sync-done sqlite
@@ -57,6 +58,8 @@ tasks:
       echo "--------------------------------------"
       echo "php/info: $(gp url 3000)/phpinfo.php"
       echo "db/adminer: $(gp url 8080)"
+      echo "db/info:"
+      # echo sqlite3 web/app/database/.ht.sqlite -e '.dbinfo'
       echo "--------------------------------------"
       echo "gp/path:" $(readlink -f .)
       echo "gp/workspace info:"
