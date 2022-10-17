@@ -37,7 +37,7 @@ tasks:
       wp db create
       
       # Launch the installation
-      wp core install --url=$(gp url 8080) --title="Wordpress on GitPod" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email --locale="uk"
+      wp core install --url=$(gp url 8080) --title="Wordpress on GitPod" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email
       
       gp sync-done init
       
