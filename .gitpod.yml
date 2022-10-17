@@ -39,7 +39,7 @@ tasks:
     init: |
       gp ports await 3000
       gp sync-done sqlite
-    command: gp sync-await sqlite && php -S 0.0.0.0:8080 -t db adminer.php & gp preview $(gp url 8080)
+    command: gp sync-await sqlite && php -S 0.0.0.0:8080 adminer.php & gp preview $(gp url 8080)
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
