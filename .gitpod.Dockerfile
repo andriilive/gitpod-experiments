@@ -12,4 +12,5 @@ RUN brew install \
     wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
 
 USER root
-RUN brew services restart mysql
+RUN brew install mysql && \
+    brew services restart mysql
