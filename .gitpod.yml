@@ -16,30 +16,32 @@ github:
 
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - name: Wordpress
+  - name: wordpress
     before: composer create-project roots/bedrock tmp && md db
     init: |
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
       mv -f .distignore tmp/.distignore
       cp -f tmp/* . && rm -rf tmp
-    command: wp server --host=0.0.0.0 --port=3000
+      wp server --host=0.0.0.0 --port=3000
+    command: gp preview $(gp url 3000)
 
-  - name: Adminer
+  - name: sqlite
     before: |
-      md db && cd db
+      mkdir db && cd db
       wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php adminer.php
       chmod 640 adminer.php
       sqlite3 gitpod.sqlite3
       chmod 777 gitpod.sqlite3
     init: |
       gp ports await 3000
-      gp preview $(gp url 3000)
-    command: cd db && php -S 0.0.0.0:8080 adminer.php & gp preview $(gp url 8080)
+      cd db
+      php -S 0.0.0.0:8080 -t db adminer.php
+    command: gp preview $(gp url 8080)
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
-  - name: Web App
+  - name: Web
     port: 3000
     onOpen: open-browser
 
