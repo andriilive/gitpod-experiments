@@ -15,6 +15,7 @@ tasks:
     before: |
       echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
       echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
+    init: |
       wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
@@ -32,10 +33,7 @@ tasks:
       wp dotenv set DB_PASSWORD root
       wp dotenv set WP_HOME $(gp url 3000)
       gp sync-done init
-    init: |
-      gp sync-await init
-      wp server --host=0.0.0.0 --port=3000
-    command: gp await ports 3000 && gp sync-await sqlite && gp preview $(gp url 3000)
+    command: gp sync-await sqlite && gp sync-await init && wp server --host=0.0.0.0 --port=3000 & gp preview $(gp url 3000)
 
   - name: sqlite
     before: |
