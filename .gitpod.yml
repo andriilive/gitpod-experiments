@@ -24,6 +24,13 @@ tasks:
       touch web/phpinfo.php && echo '<?php phpinfo();' >> web/phpinfo.php
       chmod 640 web/phpinfo.php
       wget https://raw.githubusercontent.com/aaemnnosttv/wp-sqlite-db/master/src/db.php -O web/app/db.php
+      
+      mkdir db
+      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O db/adminer.php
+      chmod 640 db/adminer.php
+      
+      sqlite3 web/app/database/.ht.sqlite3 &
+      
       chmod 640 web/phpinfo.php
       composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil lukasbesch/bedrock-plugin-disabler
       wp core install --url=$(gp url 3000) --title="Wordpress by DigitalAndy.eu" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email
@@ -32,18 +39,11 @@ tasks:
       wp dotenv set DB_USER root
       wp dotenv set DB_PASSWORD root
       wp dotenv set WP_HOME $(gp url 3000)
-    command: gp sync-await init && wp server --host=0.0.0.0 --port=3000 & gp preview $(gp url 3000)
+      gp sync-done init
+    command: wp server --host=0.0.0.0 --port=3000
 
   - name: sqlite
-    before: |
-      gp sync-await init
-      php -S 0.0.0.0:8080 db/adminer.php
-      gp sync-done adminer
-    init: |
-      mkdir db
-      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O db/adminer.php
-      chmod 640 db/adminer.php
-    command: gp sync-await adminer && sqlite3 web/app/database/.ht.sqlite
+    command: gp sync-await init && php -S 0.0.0.0:8080 db/adminer.php
 
   - name: info
     command: |
