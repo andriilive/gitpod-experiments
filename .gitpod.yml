@@ -17,7 +17,7 @@ github:
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
   - name: wordpress
-    before: composer create-project roots/bedrock tmp && md db
+    before: composer create-project roots/bedrock tmp
     init: |
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
