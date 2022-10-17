@@ -10,6 +10,7 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 - wp-cli
 - [Adminer](https://www.adminer.org) v4.8.1
 - php 8.0
+- [wp-cli dotenv](https://aaemnnost.tv/wp-cli-commands/dotenv/) support
 
 ## TODO
 
