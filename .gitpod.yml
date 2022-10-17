@@ -20,7 +20,7 @@ tasks:
     before: composer create-project roots/bedrock tmp
     init: |
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
-      cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
+      cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore 
       mv -f .distignore tmp/.distignore
       cp -f tmp/* . && rm -rf tmp
       wp server --host=0.0.0.0 --port=3000
@@ -29,7 +29,7 @@ tasks:
   - name: sqlite
     before: |
       mkdir db && cd db
-      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php adminer.php
+      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O adminer.php
       chmod 640 adminer.php
       sqlite3 gitpod.sqlite3
       chmod 777 gitpod.sqlite3
