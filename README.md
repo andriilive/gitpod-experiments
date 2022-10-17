@@ -5,8 +5,7 @@
 Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configuration, and an improved folder structure
 
 - [roots/bedrock](https://roots.io/bedrock/)
-- sqlite3
-- wp sqlite integration by [aaemnnosttv/wp-sqlite-db](https://github.com/aaemnnosttv/wp-sqlite-db)
+- mysql
 - wp-cli
 - php 8.0
 - [wp-cli dotenv](https://aaemnnost.tv/wp-cli-commands/dotenv/) support
@@ -24,7 +23,7 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 ## TODO
 
 - [x] sqlite db
-- [ ] mysql db
+- [x] mysql db
 - [ ] create .distignore at build
 - [ ] [Adminer](https://www.adminer.org) v4.8.1 db admin
 - [ ] Create scaffold's config file

@@ -1,5 +1,8 @@
 # https://www.gitpod.io/docs/configure/workspaces/workspace-image#workspace-image
-image: gitpod/workspace-mysql
+image: 
+  file: .gitpod.Dockerfile
+
+# image: gitpod/workspace-mysql
 
 # https://www.gitpod.io/docs/configure/authentication/github#github
 github:
@@ -9,10 +12,8 @@ github:
 tasks:
   - name: Initialization
     init: |
-      # Install dependencies
-      brew install wp-cli php@8.0 && brew unlink php && brew link php@8.0
-      # echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
-      # echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
+      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
+      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
       wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
       
       # Install project
@@ -76,10 +77,15 @@ tasks:
       
       echo "utils/phpinfo: $(gp url 3333)/phpinfo.php"
       echo "utils/adminer: $(gp url 3333)/adminer.php"
+      echo "https://mailtrap.io/signin"
       
       echo "--------------------------------------"
       
       git remote -v
+      
+      echo "--------------------------------------"
+      
+      gp info
 
     command: php -S 0.0.0.0:3333 -t .utils
 
