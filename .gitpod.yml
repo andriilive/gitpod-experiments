@@ -1,88 +1,84 @@
 # https://www.gitpod.io/docs/configure/workspaces/workspace-image#workspace-image
-image:
-  file: .gitpod.Dockerfile
+image: gitpod/workspace-mysql
 
 # https://www.gitpod.io/docs/configure/authentication/github#github
 github:
-  prebuilds:
-    # enable for the master/default branch (defaults to true)
-    master: true
-    branches: true
+  prebuilds: true
 
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - name: wordpress
+  - name: Initialization
+    before: |
+
     init: |
-      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
-      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
-      echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/mysql/bin:$PATH"' >> /home/gitpod/.bash_profile
+      # Install dependencies
+      brew install wp-cli
+      # echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
+      # echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
       wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
+      
+      # Install project
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
       cp -f -r tmp/. . && rm -rf -r tmp
-      touch web/phpinfo.php && echo '<?php phpinfo();' >> web/phpinfo.php
-      chmod 640 web/phpinfo.php
-      wget https://raw.githubusercontent.com/aaemnnosttv/wp-sqlite-db/master/src/db.php -O web/app/db.php
       
-      mkdir db
-      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O db/adminer.php
-      chmod 640 db/adminer.php
-      
-      # sqlite3 web/app/database/.ht.sqlite3 &
-      touch web/app/database/.ht.sqlite3
-      
+      # Install project deps
       composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil lukasbesch/bedrock-plugin-disabler
       
+      # Echo mysql users available
+      mysql -u root -e "SELECT User FROM mysql.user;"
+      
+      # Config the installation
       wp dotenv salts regenerate
       wp dotenv set DB_NAME wordpress
       wp dotenv set DB_USER root
-      wp dotenv set DB_PASSWORD root
-      wp dotenv set WP_HOME $(gp url 3000)
+      wp dotenv set DB_PASSWORD $( echo "")
+      wp dotenv set WP_HOME $(gp url 8080)
       
-      wp core install --url=$(gp url 3000) --title="Wordpress by DigitalAndy.eu" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email
-    command: wp server --host=0.0.0.0 --port=3000
+      # Create the database
+      wp db create
+      
+      # Launch the installation
+      wp core install --url=$(gp url 8080) --title="Wordpress on GitPod" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email --locale="uk"
+      
+      gp sync-done init
+      
+      wp option update blogdescription "Roots bedrock wordpress on GitPod by by DigitalAndy.eu"
+      
+      # wp post create --post_type=post --post_title='Wellcome' --post_status=publish --post_content=cat README.md
+      
+      # Create db folder
+      mkdir .db
+      wp db export --add-drop-table .db/db.sql
+    command: wp server --host=0.0.0.0 --port=8080
+  - init: |
+      gp sync-await init
+      mkdir .utils
 
-  - name: Adminer
-    command: php -S 0.0.0.0:8080 db/adminer.php
+      touch .utils/phpinfo.php && echo '<?php phpinfo();' >> .utils/phpinfo.php
+      chmod 640 .utils/phpinfo.php
 
-  - name: info
-    command: |
+      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O .utils/adminer.php
+      chmod 640 .utils/adminer.php
+
+      # Create utils
+      touch .utils/phpinfo.php && echo '<?php phpinfo();' >> .utils/phpinfo.php
+      chmod 640 .utils/phpinfo.php
+      
       gp ports await 8080
-      echo "wp/web: $(gp url 3000)"
-      echo "wp/admin: $(gp url 3000)/wp/wp-login.php"
+      
+      echo "wp/web: $(gp url 8080)"
+      echo "wp/admin: $(gp url 8080)/wp/wp-login.php"
       echo "wp/user:"
       echo "username: root"
       echo "password: root"
       echo "wp/env:"
       wp dotenv list
+      
       echo "--------------------------------------"
-      echo "php/info: $(gp url 3000)/phpinfo.php"
-      echo "db/adminer: $(gp url 8080)"
-      echo "db/info:"
-      # echo sqlite3 web/app/database/.ht.sqlite -e '.dbinfo'
-      echo "--------------------------------------"
-      echo "gp/path:" $(readlink -f .)
-      echo "gp/workspace info:"
-      gp info
-      echo "gp/git remotes"
-      git remote -v
+      
+      echo "utils/phpinfo: $(gp url 3333)/phpinfo.php"
+      echo "utils/adminer: $(gp url 3333)/adminer.php"
 
-# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
-ports:
-  - name: Web
-    port: 3000
-    onOpen: open-browser
-
-  - name: Adminer
-    port: 8080
-    onOpen: ignore
-
-  - port: 5000-8079
-    onOpen: ignore
-
-vscode:
-  extensions:
-    - alexcvzz.vscode-sqlite
-    - bmewburn.vscode-intelephense-client
-    - johnbillion.vscode-wordpress-hooks
+    command: php -S 0.0.0.0:3333 -t .utils
