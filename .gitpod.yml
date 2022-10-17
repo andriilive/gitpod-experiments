@@ -15,7 +15,6 @@ tasks:
     before: |
       echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
       echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
-      brew install mysql
       wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
@@ -87,3 +86,5 @@ ports:
 vscode:
   extensions:
     - alexcvzz.vscode-sqlite
+    - bmewburn.vscode-intelephense-client
+    - johnbillion.vscode-wordpress-hooks
