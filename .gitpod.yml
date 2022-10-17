@@ -41,7 +41,7 @@ tasks:
       
       # lukasbesch/bedrock-plugin-disabler
       
-      gp sync-done init
+    
       
       wp option update blogdescription "Roots bedrock wordpress on GitPod by by DigitalAndy.eu"
       
@@ -50,7 +50,7 @@ tasks:
       # Create db folder
       mkdir .db
       wp db export --add-drop-table .db/db.sql
-    command: wp server --host=0.0.0.0 --port=8080
+    command: gp sync-done init && wp server --host=0.0.0.0 --port=8080
   - init: |
       gp sync-await init
       mkdir .utils
@@ -64,8 +64,6 @@ tasks:
       # Create utils
       touch .utils/phpinfo.php && echo '<?php phpinfo();' >> .utils/phpinfo.php
       chmod 640 .utils/phpinfo.php
-      
-      gp ports await 8080
       
       echo "wp/web: $(gp url 8080)"
       echo "wp/admin: $(gp url 8080)/wp/wp-login.php"
