@@ -12,9 +12,14 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 - [wp-cli dotenv](https://aaemnnost.tv/wp-cli-commands/dotenv/) support
 
 ## Readlist
+- https://www.gitpod.io/guides/gitpodify
+- https://github.com/apolopena/gitpod-laravel-starter
+- https://dev.to/obasekietinosa/gitpodifying-a-new-laravel-application-57pp
 - [digitalandyeu/gitpod-wordpress-roots](https://github.com/digitalandyeu/gitpod-wordpress-roots)
 - [ddenv](https://ddev.com)
 - https://github.com/edniaj/gitpod_with_mysql
+- https://github.com/hidden-being/gitpod-laravel
+- https://notes.etin.space/post/gitpodifying-a-new-laravel-application/
 
 ## TODO
 
