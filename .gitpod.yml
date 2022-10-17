@@ -12,7 +12,7 @@ tasks:
 
     init: |
       # Install dependencies
-      brew install wp-cli
+      brew install wp-cli php@8.0 && brew unlink php && brew link php@8.0
       # echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/bin:$PATH"' >> /home/gitpod/.bash_profile
       # echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/php@8.0/sbin:$PATH"' >> /home/gitpod/.bash_profile
       wp package install aaemnnosttv/wp-cli-dotenv-command:^2.0
@@ -26,14 +26,12 @@ tasks:
       # Install project deps
       composer require andriilive/wp-disable-generated-image-sizes andriilive/wp-cli-media-regenerate-svg-fix lukasbesch/bedrock-plugin-disabler roots/soil lukasbesch/bedrock-plugin-disabler
       
-      # Echo mysql users available
-      mysql -u root -e "SELECT User FROM mysql.user;"
-      
       # Config the installation
       wp dotenv salts regenerate
       wp dotenv set DB_NAME wordpress
       wp dotenv set DB_USER root
-      wp dotenv set DB_PASSWORD $( echo "")
+      # wp dotenv set DB_PASSWORD
+      sed -i 's/'database_password'//g' .env
       wp dotenv set WP_HOME $(gp url 8080)
       
       # Create the database
