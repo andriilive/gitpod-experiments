@@ -11,6 +11,10 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-lile configu
 - php 8.0
 - Tested up to roots/bedrock v1.20.2
 
+## TODO
+
+- [ ] Add empty lines to the prepended files (readme, .gitignore)
+
 Two empty lines at the end of this file are recommended
 
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)

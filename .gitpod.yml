@@ -20,8 +20,7 @@ tasks:
     before: |
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
-      cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore 
-      mv -f .distignore tmp/.distignore
+      cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
       cp -f -r tmp/. . && rm -rf -r tmp
       gp sync-done init
     init: |
@@ -50,3 +49,9 @@ ports:
   - name: Adminer
     port: 8080
     onOpen: open-browser
+
+  - port: 6942
+    onOpen: ignore
+
+  - port: 5000-8079
+    onOpen: ignore
