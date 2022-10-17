@@ -29,14 +29,13 @@ tasks:
   - name: sqlite
     before: |
       mkdir db && cd db
-      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O adminer.php
-      chmod 640 adminer.php
-      sqlite3 gitpod.sqlite3
-      chmod 777 gitpod.sqlite3
+      wget https://github.com/vrana/adminer/releases/download/v4.8.1/editor-4.8.1-en.php -O index.php
+      chmod 640 index.php
+      touch gitpod.sqlite
     init: |
       gp ports await 3000
-      php -S 0.0.0.0:8080 -t db adminer.php
-    command: gp preview $(gp url 8080)
+      gp sync-done sqlite
+    command: gp sync-await sqlite && php -S 0.0.0.0:8080 -t db adminer.php & gp preview $(gp url 8080)
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
