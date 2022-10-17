@@ -29,7 +29,7 @@ tasks:
       wp dotenv set DB_NAME wordpress
       wp dotenv set DB_USER root
       # wp dotenv set DB_PASSWORD
-      sed -i 's/'database_password'//g' .env
+      sed "s/DB_PASSWORD=.*/DB_PASSWORD=/g"
       wp dotenv set WP_HOME $(gp url 8080)
       
       # Create the database
