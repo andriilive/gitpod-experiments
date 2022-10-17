@@ -18,6 +18,7 @@ github:
 tasks:
   - name: wordpress
     before: |
+      brew install mysql
       composer create-project roots/bedrock tmp
       cat tmp/README.md >> README.md && mv -f README.md tmp/README.md
       cat tmp/.gitignore >> .gitignore && mv -f .gitignore tmp/.gitignore
@@ -58,7 +59,7 @@ tasks:
       echo "wp/user:"
       echo "username: root"
       echo "password: root"
-      echo "wp/envs:"
+      echo "wp/env:"
       wp dotenv list
       echo "--------------------------------------"
       echo "php/info: $(gp url 3000)/phpinfo.php"
