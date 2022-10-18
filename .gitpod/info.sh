@@ -10,8 +10,13 @@ echo "wp/env:"
 echo "--------------------------------------"
 
 echo "utils/phpinfo: $(gp url 3333)/phpinfo.php"
-echo "utils/adminer: $(gp url 3333)/adminer.php"
 echo "https://mailtrap.io/signin"
+wp cli
+
+echo "--------------------------------------"
+
+mysql -e "show databases;"
+echo "utils/adminer: $(gp url 3333)/adminer.php"
 
 echo "--------------------------------------"
 
