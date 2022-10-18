@@ -10,11 +10,11 @@ github:
 
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
+  - command: ports await 8080 && sh .gitpod/info.sh
   - name: Initialization
-    init: composer install
+    init: composer install && sh.gitpod/dotenv.sh
     command: wp db create && wp db import .db/db.sql && wp server --host=0.0.0.0 --port=8080
   - command: php -S 0.0.0.0:3333 -t .utils
-  - command: .gitpod/info.sh
 
 ports:
   - port: 3306
