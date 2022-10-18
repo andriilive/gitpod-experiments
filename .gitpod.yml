@@ -12,7 +12,8 @@ github:
 tasks:
   - command: ports await 8080 && sh .gitpod/info.sh
   - name: Initialization
-    init: composer install && sh.gitpod/dotenv.sh
+    init: composer install && sh .gitpod/dotenv.sh
+    before: sh .gitpod/config.sh
     command: wp db create && wp db import .db/db.sql && wp server --host=0.0.0.0 --port=8080
   - command: php -S 0.0.0.0:3333 -t .utils
 
