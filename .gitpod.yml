@@ -12,17 +12,13 @@ github:
 tasks:
   - command: ports await 8080 && sh .gitpod/info.sh
   - name: Initialization
-    init: composer install && sh .gitpod/dotenv.sh
-    before: sh .gitpod/config.sh
-    command: wp db create && wp db import .db/db.sql && wp server --host=0.0.0.0 --port=8080
-  - command: php -S 0.0.0.0:3333 -t .utils
+    init: sh .gitpod/config.sh && wp core download && composer install && sh .gitpod/dotenv.sh
+    command: wp core downlaod && wp config create && wp config set DB_NAME wordpress && wp config set DB_USER root
 
 ports:
-  - port: 3306
-    onOpen: ignore
-  - port: 33060
+  - port: 1-10000
     onOpen: ignore
   - port: 8080
     onOpen: open-browser
-  - port: 3333
-    onOpen: ignore
+  - port: 3000
+    onOpen: open-browser
