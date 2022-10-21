@@ -13,7 +13,7 @@ tasks:
   - command: ports await 8080 && sh .gitpod/info.sh
   - name: Initialization
     init: sh .gitpod/config.sh && wp core download && composer install && sh .gitpod/dotenv.sh
-    command: wp core downlaod && wp config create && wp config set DB_NAME wordpress && wp config set DB_USER root
+    command: wp core downlaod
 
 ports:
   - port: 1-10000

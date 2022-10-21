@@ -4,3 +4,7 @@
 /vendor
 wp-*
 !wp-content/themes/theme
+xmlrpc.php
+readme.html
+license.txt
+index.php
