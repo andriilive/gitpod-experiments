@@ -12,8 +12,12 @@ github:
 tasks:
   - command: ports await 8080 && sh .gitpod/info.sh
   - name: Initialization
-    init: sh .gitpod/config.sh && wp core download && composer install && sh .gitpod/dotenv.sh
-    command: wp core downlaod
+    init: sh .gitpod/config.sh && \
+          wp config create --dbname=wordpress --dbuser=root --dbhost=0.0.0.0 --homeurl=$(gp url 8080) && \
+          wp core downlaod && composer install
+    command: wp core install --url=$(gp url 8080) --title="Wordpress on GitPod" --admin_user="root" --admin_password="root" --admin_email="example@example.com" --skip-email && \
+             sh .gitpod/sca.sh && cd wp-content/themes && composer create-project roots/sage theme && cd theme && \
+             pnpm && pnpm dev
 
 ports:
   - port: 1-10000
