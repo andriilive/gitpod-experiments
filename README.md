@@ -10,6 +10,18 @@ Scaffolds & runs fresh WordPress boilerplate with Composer, Laravel-like configu
 - php 8.0
 - [wp-cli dotenv](https://aaemnnost.tv/wp-cli-commands/dotenv/) support
 
+## Experiments:
+
+See [branches](https://github.com/andriilive/gitpod-wordpress-experiments/branches) for complete experiments list
+
+**Scaffolds:**
+- [scaffold mysql](https://github.com/andriilive/gitpod-wordpress-experiments/tree/workspace/mysql-only)
+- [scaffold sqlite](https://github.com/andriilive/gitpod-wordpress-experiments/tree/workspace/sqlite-only)
+
+**Projects:**
+- [wp-bedrock project](https://github.com/andriilive/gitpod-wordpress-experiments/tree/project/wp-bedrock)
+- [wp-cli based project](https://github.com/andriilive/gitpod-wordpress-experiments/tree/project/wp-cli-based)
+
 ## Readlist
 - https://www.gitpod.io/guides/gitpodify
 - https://github.com/apolopena/gitpod-laravel-starter
